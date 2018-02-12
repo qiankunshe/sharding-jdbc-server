@@ -21,7 +21,7 @@
         <lombok.version>1.16.4</lombok.version>
         <junit.version>4.12</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
-
+        
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
         <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
@@ -94,7 +94,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <pluginManagement>
             <plugins>

@@ -16,7 +16,17 @@
 目前问题:
 
 1. 将ok packet发送至客户端时, MySQLMessageCodec中的decode方法会调用,这里比较奇怪. decode应该是读取数据调用,不应是发送数据时调用吧
-2. 在decode方法中的bytebuf进行任何操作都会报错,异常信息: io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
+2. 在decode方法中的bytebuf进行任何操作都会报错,异常信息: 
+
+```
+io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
+```
+
+3. 关键点在于HandshakeHandler的channelRead方法中的下面代码, 将OKPacket发送至客户端,却被MySQLMessageCodec中的decode方法拦截,并报错:
+
+```java
+context.writeAndFlush(new OKPacket(1, 0L, 0L, 0, 0, "connection success"));这样
+```
 
 如果有对netty熟悉的朋友请赐教.
 
