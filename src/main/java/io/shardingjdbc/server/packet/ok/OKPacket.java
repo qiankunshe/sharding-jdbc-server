@@ -1,7 +1,7 @@
 package io.shardingjdbc.server.packet.ok;
 
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
-import io.shardingjdbc.server.packet.MySQLSendPacket;
+import io.shardingjdbc.server.packet.MySQLSentPacket;
 import lombok.Getter;
 
 /**
@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author zhangliang 
  */
 @Getter
-public class OKPacket extends MySQLSendPacket {
+public class OKPacket extends MySQLSentPacket {
     
     private static final int HEADER = 0x00;
     

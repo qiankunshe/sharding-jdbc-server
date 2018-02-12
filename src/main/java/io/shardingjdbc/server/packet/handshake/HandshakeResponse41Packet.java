@@ -1,6 +1,8 @@
 package io.shardingjdbc.server.packet.handshake;
 
+import com.google.common.base.Preconditions;
 import io.shardingjdbc.server.constant.CapabilityFlag;
+import io.shardingjdbc.server.packet.MySQLPacket;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLReceivedPacket;
 import lombok.Getter;
@@ -30,6 +32,8 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
     
     @Override
     public HandshakeResponse41Packet read(final MySQLPacketPayload mysqlPacketPayload) {
+        int readableBytes = mysqlPacketPayload.getByteBuf().readableBytes();
+        Preconditions.checkState(readableBytes > MySQLPacket.PAYLOAD_LENGTH && readableBytes >= mysqlPacketPayload.readInt3());
         setSequenceId(mysqlPacketPayload.readInt1());
         capabilityFlags = mysqlPacketPayload.readInt4();
         maxPacketSize = mysqlPacketPayload.readInt4();
@@ -38,7 +42,8 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
         username = mysqlPacketPayload.readStringNul();
         readAuthResponse(mysqlPacketPayload);
         readDatabase(mysqlPacketPayload);
-        mysqlPacketPayload.getByteBuf().release();
+        // TODO to be confirm remove release manually
+//        mysqlPacketPayload.getByteBuf().release();
         return this;
     }
     

@@ -4,7 +4,7 @@ import io.shardingjdbc.server.constant.CapabilityFlag;
 import io.shardingjdbc.server.constant.ServerInfo;
 import io.shardingjdbc.server.constant.StatusFlag;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
-import io.shardingjdbc.server.packet.MySQLSendPacket;
+import io.shardingjdbc.server.packet.MySQLSentPacket;
 import lombok.Getter;
 
 /**
@@ -15,7 +15,7 @@ import lombok.Getter;
  * @author zhangliang
  */
 @Getter
-public class HandshakePacket extends MySQLSendPacket {
+public class HandshakePacket extends MySQLSentPacket {
     
     private final int connectionId;
     

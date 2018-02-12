@@ -287,6 +287,7 @@ public final class MySQLPacketPayload {
     public String readStringEOF() {
         byte[] result = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(result);
+        // TODO to be confirm release auto
         byteBuf.release();
         return new String(result);
     }
