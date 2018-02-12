@@ -1,6 +1,8 @@
 package io.shardingjdbc.server.packet.handshake;
 
+import io.shardingjdbc.server.constant.CapabilityFlag;
 import io.shardingjdbc.server.constant.ServerInfo;
+import io.shardingjdbc.server.constant.StatusFlag;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLSendPacket;
 import lombok.Getter;

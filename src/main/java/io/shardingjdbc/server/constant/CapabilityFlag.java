@@ -1,4 +1,4 @@
-package io.shardingjdbc.server.packet.handshake;
+package io.shardingjdbc.server.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

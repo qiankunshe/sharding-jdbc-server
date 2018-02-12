@@ -25,7 +25,7 @@ io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
 3. 关键点在于HandshakeHandler的channelRead方法中的下面代码, 将OKPacket发送至客户端,却被MySQLMessageCodec中的decode方法拦截,并报错:
 
 ```java
-context.writeAndFlush(new OKPacket(1, 0L, 0L, 0, 0, "connection success"));这样
+context.writeAndFlush(new OKPacket(1, 0L, 0L, 0, 0, "connection success"));
 ```
 
 如果有对netty熟悉的朋友请赐教.

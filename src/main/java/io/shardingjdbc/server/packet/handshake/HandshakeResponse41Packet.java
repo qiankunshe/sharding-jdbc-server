@@ -1,5 +1,6 @@
 package io.shardingjdbc.server.packet.handshake;
 
+import io.shardingjdbc.server.constant.CapabilityFlag;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLReceivedPacket;
 import lombok.Getter;

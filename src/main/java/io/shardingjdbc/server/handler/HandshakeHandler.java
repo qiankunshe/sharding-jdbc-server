@@ -29,7 +29,7 @@ public class HandshakeHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(final ChannelHandlerContext context, final Object message) throws Exception {
         HandshakeResponse41Packet response41 = new HandshakeResponse41Packet().read(new MySQLPacketPayload((ByteBuf) message));
         // TODO auth
-    
+        
         context.writeAndFlush(new OKPacket(1, 0L, 0L, 0, 0, "connection success"));
     }
 }

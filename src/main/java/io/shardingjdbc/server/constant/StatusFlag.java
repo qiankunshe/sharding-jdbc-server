@@ -1,4 +1,4 @@
-package io.shardingjdbc.server.packet.handshake;
+package io.shardingjdbc.server.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public enum StatusFlag {
         return calculateStatusFlags(SERVER_STATUS_IN_TRANS, SERVER_STATUS_AUTOCOMMIT, SERVER_MORE_RESULTS_EXISTS);
     }
     
-    private static int calculateStatusFlags(StatusFlag... capabilities) {
+    private static int calculateStatusFlags(final StatusFlag... capabilities) {
         int result = 0;
         for (StatusFlag each : capabilities) {
             result |= each.value;
