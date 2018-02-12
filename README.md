@@ -1,6 +1,6 @@
 此项目是sharding-jdbc的server版本, 用Netty实现MySQL protocol, 然后在使用sharding jdbc进行分库分表. 
 
-当项目开发出现技术问题时, 此reop用于技术难点的攻克.
+当项目开发出现技术问题时, 此repo用于技术难点的攻克.
 
 使用方法:
 1, 安装mysql命令行客户端
