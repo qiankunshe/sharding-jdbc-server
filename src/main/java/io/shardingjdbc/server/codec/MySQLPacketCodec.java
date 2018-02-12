@@ -17,10 +17,7 @@ public class MySQLPacketCodec extends ByteToMessageCodec<MySQLSendPacket> {
     
     @Override
     protected void decode(final ChannelHandlerContext context, final ByteBuf in, final List<Object> out) throws Exception {
-        if (in.readableBytes() < 3) {
-            return;
-        }
-        if (in.readableBytes() < readPayloadLength(in)) {
+        if (in.readableBytes() < 3 || in.readableBytes() < readPayloadLength(in)) {
             return;
         }
         out.add(in);

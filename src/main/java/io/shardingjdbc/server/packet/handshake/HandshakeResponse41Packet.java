@@ -29,33 +29,33 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
     private String database;
     
     @Override
-    public HandshakeResponse41Packet read(final MySQLPacketPayload mySQLPacketPayload) {
-        setSequenceId(mySQLPacketPayload.readInt1());
-        capabilityFlags = mySQLPacketPayload.readInt4();
-        maxPacketSize = mySQLPacketPayload.readInt4();
-        characterSet = (byte) mySQLPacketPayload.readInt1();
-        mySQLPacketPayload.skipReserved(23);
-        username = mySQLPacketPayload.readStringNul();
-        readAuthResponse(mySQLPacketPayload);
-        readDatabase(mySQLPacketPayload);
-        mySQLPacketPayload.getByteBuf().release();
+    public HandshakeResponse41Packet read(final MySQLPacketPayload mysqlPacketPayload) {
+        setSequenceId(mysqlPacketPayload.readInt1());
+        capabilityFlags = mysqlPacketPayload.readInt4();
+        maxPacketSize = mysqlPacketPayload.readInt4();
+        characterSet = (byte) mysqlPacketPayload.readInt1();
+        mysqlPacketPayload.skipReserved(23);
+        username = mysqlPacketPayload.readStringNul();
+        readAuthResponse(mysqlPacketPayload);
+        readDatabase(mysqlPacketPayload);
+        mysqlPacketPayload.getByteBuf().release();
         return this;
     }
     
-    private void readAuthResponse(final MySQLPacketPayload mySQLPacketPayload) {
+    private void readAuthResponse(final MySQLPacketPayload mysqlPacketPayload) {
         if (0 != (capabilityFlags & CapabilityFlag.CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA.getValue())) {
-            authResponse = mySQLPacketPayload.readStringLenenc().getBytes();
+            authResponse = mysqlPacketPayload.readStringLenenc().getBytes();
         } else if (0 != (capabilityFlags & CapabilityFlag.CLIENT_SECURE_CONNECTION.getValue())) {
-            int length = mySQLPacketPayload.readInt1();
-            authResponse = mySQLPacketPayload.readStringFix(length).getBytes();
+            int length = mysqlPacketPayload.readInt1();
+            authResponse = mysqlPacketPayload.readStringFix(length).getBytes();
         } else {
-            authResponse = mySQLPacketPayload.readStringNul().getBytes();
+            authResponse = mysqlPacketPayload.readStringNul().getBytes();
         }
     }
     
-    private void readDatabase(final MySQLPacketPayload mySQLPacketPayload) {
+    private void readDatabase(final MySQLPacketPayload mysqlPacketPayload) {
         if (0 != (capabilityFlags & CapabilityFlag.CLIENT_CONNECT_WITH_DB.getValue())) {
-            database = mySQLPacketPayload.readStringNul();
+            database = mysqlPacketPayload.readStringNul();
         }
     }
 }

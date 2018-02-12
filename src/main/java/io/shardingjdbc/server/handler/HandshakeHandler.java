@@ -22,13 +22,13 @@ public class HandshakeHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(final ChannelHandlerContext context) throws Exception {
         authPluginData = new AuthPluginData();
-        context.write(new HandshakePacket(ConnectionIdGenerator.getInstance().nextId(), authPluginData));
+        context.writeAndFlush(new HandshakePacket(ConnectionIdGenerator.getInstance().nextId(), authPluginData));
     }
     
     @Override
     public void channelRead(final ChannelHandlerContext context, final Object message) throws Exception {
         HandshakeResponse41Packet response41 = new HandshakeResponse41Packet().read(new MySQLPacketPayload((ByteBuf) message));
-        // TODO auth
+        // TODO use authPluginData to auth
         
         context.writeAndFlush(new OKPacket(1, 0L, 0L, 0, 0, "connection success"));
     }
