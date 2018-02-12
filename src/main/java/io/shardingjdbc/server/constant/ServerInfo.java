@@ -20,5 +20,5 @@ public interface ServerInfo {
     /**
      * Charset code 0x21 is utf8_general_ci.
      */
-    byte CHARSET = 0x21 & 0xff;
+    int CHARSET = 0x21;
 }

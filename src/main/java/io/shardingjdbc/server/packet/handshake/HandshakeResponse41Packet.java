@@ -20,7 +20,7 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
     
     private int maxPacketSize;
     
-    private byte characterSet;
+    private int characterSet;
     
     private String username;
     
@@ -33,7 +33,7 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
         setSequenceId(mysqlPacketPayload.readInt1());
         capabilityFlags = mysqlPacketPayload.readInt4();
         maxPacketSize = mysqlPacketPayload.readInt4();
-        characterSet = (byte) mysqlPacketPayload.readInt1();
+        characterSet = mysqlPacketPayload.readInt1();
         mysqlPacketPayload.skipReserved(23);
         username = mysqlPacketPayload.readStringNul();
         readAuthResponse(mysqlPacketPayload);
