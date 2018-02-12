@@ -5,9 +5,9 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.oio.OioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.oio.OioServerSocketChannel;
 import io.shardingjdbc.server.codec.MySQLSentPacketEncoder;
 import io.shardingjdbc.server.handler.HandshakeHandler;
 
@@ -23,11 +23,11 @@ public class Bootstrap {
     }
     
     private void start(final int port) throws InterruptedException {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new OioEventLoopGroup(1);
+        EventLoopGroup workerGroup = new OioEventLoopGroup();
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
-            bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+            bootstrap.group(bossGroup, workerGroup).channel(OioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         
                         @Override
