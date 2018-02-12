@@ -3,6 +3,7 @@ package io.shardingjdbc.server.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
+import io.shardingjdbc.server.packet.MySQLPacket;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLSendPacket;
 
@@ -17,7 +18,8 @@ public class MySQLPacketCodec extends ByteToMessageCodec<MySQLSendPacket> {
     
     @Override
     protected void decode(final ChannelHandlerContext context, final ByteBuf in, final List<Object> out) throws Exception {
-        if (in.readableBytes() < 3 || in.readableBytes() < readPayloadLength(in)) {
+        int readableBytes = in.readableBytes();
+        if (readableBytes < MySQLPacket.PAYLOAD_LENGTH || readableBytes < readPayloadLength(in)) {
             return;
         }
         out.add(in);

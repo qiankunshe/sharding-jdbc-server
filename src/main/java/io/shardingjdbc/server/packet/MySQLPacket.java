@@ -12,5 +12,7 @@ import lombok.Setter;
 @Setter
 public abstract class MySQLPacket {
     
+    public static final int PAYLOAD_LENGTH = 3;
+    
     private int sequenceId;
 }
