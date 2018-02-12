@@ -22,7 +22,7 @@ public class HandshakePacket extends MySQLSendPacket {
     private final AuthPluginData authPluginData;
     
     public HandshakePacket(final int connectionId, AuthPluginData authPluginData) {
-        setSequenceId((byte) 0);
+        setSequenceId(0);
         this.connectionId = connectionId;
         this.authPluginData = authPluginData;
     }
