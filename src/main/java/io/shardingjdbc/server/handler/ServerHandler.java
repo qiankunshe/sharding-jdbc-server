@@ -5,6 +5,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.shardingjdbc.server.constant.StatusFlag;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
+import io.shardingjdbc.server.packet.command.CommandPacket;
+import io.shardingjdbc.server.packet.command.CommandPacketFactory;
 import io.shardingjdbc.server.packet.handshake.AuthPluginData;
 import io.shardingjdbc.server.packet.handshake.ConnectionIdGenerator;
 import io.shardingjdbc.server.packet.handshake.HandshakePacket;
@@ -12,13 +14,15 @@ import io.shardingjdbc.server.packet.handshake.HandshakeResponse41Packet;
 import io.shardingjdbc.server.packet.ok.OKPacket;
 
 /**
- * Handshake handler.
+ * Server handler.
  * 
  * @author zhangliang 
  */
-public class HandshakeHandler extends ChannelInboundHandlerAdapter {
+public class ServerHandler extends ChannelInboundHandlerAdapter {
     
     private AuthPluginData authPluginData;
+    
+    private boolean authorized;
     
     @Override
     public void channelActive(final ChannelHandlerContext context) throws Exception {
@@ -28,8 +32,24 @@ public class HandshakeHandler extends ChannelInboundHandlerAdapter {
     
     @Override
     public void channelRead(final ChannelHandlerContext context, final Object message) throws Exception {
-        HandshakeResponse41Packet response41 = new HandshakeResponse41Packet().read(new MySQLPacketPayload((ByteBuf) message));
+        MySQLPacketPayload mysqlPacketPayload = new MySQLPacketPayload((ByteBuf) message);
+        if (!authorized) {
+            auth(context, mysqlPacketPayload);
+        } else {
+            executeCommand(context, mysqlPacketPayload);
+        }
+    }
+    
+    private void auth(final ChannelHandlerContext context, final MySQLPacketPayload mysqlPacketPayload) {
+        HandshakeResponse41Packet response41 = new HandshakeResponse41Packet().read(mysqlPacketPayload);
         // TODO use authPluginData to auth
+        authorized = true;
         context.writeAndFlush(new OKPacket(response41.getSequenceId() + 1, 0L, 0L, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue(), 0, ""));
+    }
+    
+    private void executeCommand(final ChannelHandlerContext context, final MySQLPacketPayload mysqlPacketPayload) {
+        CommandPacket commandPacket = CommandPacketFactory.getCommandPacket(mysqlPacketPayload.readInt1());
+        commandPacket.read(mysqlPacketPayload);
+        context.writeAndFlush(commandPacket.execute());
     }
 }
