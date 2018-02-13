@@ -95,7 +95,7 @@ io.netty.util.IllegalReferenceCountException: refCnt: 0, increment: 1
 	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_79]
 ```
 
-目前netty使用的是bio,则不会出现此错误, 可以正常登录. 将Bootstrap中的OioEventLoopGroup和OioServerSocketChannel还为NioEventLoopGroup和NioServerSocketChannel就会报错.(目前的代码是bio,可以正常用)
+目前netty使用的是bio,则不会出现此错误, 可以正常登录. 将Bootstrap中的OioEventLoopGroup和OioServerSocketChannel换为NioEventLoopGroup和NioServerSocketChannel就会报错.(目前的代码是bio,可以正常用)
 
 如果有对netty熟悉的朋友请赐教.
 
