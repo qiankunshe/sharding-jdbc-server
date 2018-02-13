@@ -50,7 +50,7 @@ public enum StatusFlag {
      * @return handshake capability flags lower bit
      */
     public static int calculateHandshakeStatusFlags() {
-        return calculateStatusFlags(SERVER_STATUS_IN_TRANS, SERVER_STATUS_AUTOCOMMIT, SERVER_MORE_RESULTS_EXISTS);
+        return calculateStatusFlags(SERVER_STATUS_AUTOCOMMIT);
     }
     
     private static int calculateStatusFlags(final StatusFlag... capabilities) {
