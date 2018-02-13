@@ -20,6 +20,5 @@ public final class MySQLSentPacketEncoder extends MessageToByteEncoder<MySQLSent
         out.writeMediumLE(mysqlPacketPayload.getByteBuf().readableBytes());
         out.writeByte(mysqlSentPacket.getSequenceId());
         out.writeBytes(mysqlPacketPayload.getByteBuf());
-        context.writeAndFlush(out);
     }
 }

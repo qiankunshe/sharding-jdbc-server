@@ -42,8 +42,6 @@ public final class HandshakeResponse41Packet extends MySQLReceivedPacket {
         username = mysqlPacketPayload.readStringNul();
         readAuthResponse(mysqlPacketPayload);
         readDatabase(mysqlPacketPayload);
-        // TODO to be confirm remove release manually
-//        mysqlPacketPayload.getByteBuf().release();
         return this;
     }
     
