@@ -48,7 +48,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
     
     private void executeCommand(final ChannelHandlerContext context, final MySQLPacketPayload mysqlPacketPayload) {
+        int sequenceId = mysqlPacketPayload.readInt1();
         CommandPacket commandPacket = CommandPacketFactory.getCommandPacket(mysqlPacketPayload.readInt1());
+        commandPacket.setSequenceId(sequenceId);
         commandPacket.read(mysqlPacketPayload);
         context.writeAndFlush(commandPacket.execute());
     }
