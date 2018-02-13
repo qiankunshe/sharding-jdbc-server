@@ -30,7 +30,6 @@ public class HandshakeHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(final ChannelHandlerContext context, final Object message) throws Exception {
         HandshakeResponse41Packet response41 = new HandshakeResponse41Packet().read(new MySQLPacketPayload((ByteBuf) message));
         // TODO use authPluginData to auth
-        
-        context.writeAndFlush(new OKPacket(2, 0L, 0L, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue(), 0, ""));
+        context.writeAndFlush(new OKPacket(response41.getSequenceId() + 1, 0L, 0L, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue(), 0, ""));
     }
 }
