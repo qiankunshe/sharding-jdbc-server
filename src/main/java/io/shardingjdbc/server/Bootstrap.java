@@ -8,7 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.shardingjdbc.server.codec.MySQLSentPacketEncoder;
+import io.shardingjdbc.server.codec.MySQLPacketCodec;
 import io.shardingjdbc.server.handler.HandshakeHandler;
 
 /**
@@ -33,7 +33,7 @@ public class Bootstrap {
                         @Override
                         public void initChannel(final SocketChannel socketChannel) throws Exception {
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                            pipeline.addLast(new MySQLSentPacketEncoder());
+                            pipeline.addLast(new MySQLPacketCodec());
                             pipeline.addLast(new HandshakeHandler());
                         }
                     });

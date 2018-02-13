@@ -7,18 +7,18 @@ import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLSentPacket;
 
 /**
- * MySQL sent packet encoder.
+ * MySQL packet encoder.
  * 
  * @author zhangliang 
  */
-public final class MySQLSentPacketEncoder extends MessageToByteEncoder<MySQLSentPacket> {
+public final class MySQLPacketEncoder extends MessageToByteEncoder<MySQLSentPacket> {
     
     @Override
-    protected void encode(final ChannelHandlerContext context, final MySQLSentPacket mysqlSentPacket, final ByteBuf out) throws Exception {
+    protected void encode(final ChannelHandlerContext context, final MySQLSentPacket message, final ByteBuf out) throws Exception {
         MySQLPacketPayload mysqlPacketPayload = new MySQLPacketPayload(context.alloc().buffer());
-        mysqlSentPacket.write(mysqlPacketPayload);
+        message.write(mysqlPacketPayload);
         out.writeMediumLE(mysqlPacketPayload.getByteBuf().readableBytes());
-        out.writeByte(mysqlSentPacket.getSequenceId());
+        out.writeByte(message.getSequenceId());
         out.writeBytes(mysqlPacketPayload.getByteBuf());
     }
 }
