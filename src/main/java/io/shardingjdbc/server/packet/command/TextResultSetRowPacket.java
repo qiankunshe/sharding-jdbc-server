@@ -13,17 +13,17 @@ import java.util.List;
  */
 public final class TextResultSetRowPacket extends MySQLSentPacket {
     
-    private final List<String> data;
+    private final List<Object> data;
     
-    public TextResultSetRowPacket(final int sequenceId, final List<String> data) {
+    public TextResultSetRowPacket(final int sequenceId, final List<Object> data) {
         setSequenceId(sequenceId);
         this.data = data;
     }
     
     @Override
     public void write(final MySQLPacketPayload mysqlPacketPayload) {
-        for (String each : data) {
-            mysqlPacketPayload.writeStringLenenc(each);
+        for (Object each : data) {
+            mysqlPacketPayload.writeStringLenenc(each.toString());
         }
     }
 }

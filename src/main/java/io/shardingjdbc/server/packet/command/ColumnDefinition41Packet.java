@@ -1,5 +1,6 @@
 package io.shardingjdbc.server.packet.command;
 
+import io.shardingjdbc.server.constant.ColumnType;
 import io.shardingjdbc.server.constant.ServerInfo;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
 import io.shardingjdbc.server.packet.MySQLSentPacket;
