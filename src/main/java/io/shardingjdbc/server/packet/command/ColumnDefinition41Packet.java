@@ -36,8 +36,6 @@ public final class ColumnDefinition41Packet extends MySQLSentPacket {
     
     private final int decimals;
     
-    // TODO COM_FIELD_LIST
-    
     public ColumnDefinition41Packet(int sequenceId, final String schema, final String table, final String orgTable, final String name, final String orgName, final int columnLength, final ColumnType columnType, final int decimals) {
         setSequenceId(sequenceId);
         this.schema = schema;
