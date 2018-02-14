@@ -36,7 +36,7 @@ public final class ComQueryPacket extends CommandPacket {
         }
         result.add(new EofPacket(++currentSequenceId, 0, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue()));
         for (int i = 0; i < 1; i++) {
-            result.add(new ResultSetRowPacket(++currentSequenceId, Collections.singletonList("Sharding JDBC")));
+            result.add(new TextResultSetRowPacket(++currentSequenceId, Collections.singletonList("Sharding JDBC")));
         }
         result.add(new EofPacket(++currentSequenceId, 0, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue()));
         return result;

@@ -6,16 +6,16 @@ import io.shardingjdbc.server.packet.MySQLSentPacket;
 import java.util.List;
 
 /**
- * Result set row packet.
+ * Text result set row packet.
  * @see <a href="https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-ProtocolText::ResultsetRow">ResultsetRow</a>
  *
  * @author zhangliang
  */
-public final class ResultSetRowPacket extends MySQLSentPacket {
+public final class TextResultSetRowPacket extends MySQLSentPacket {
     
     private final List<String> data;
     
-    public ResultSetRowPacket(final int sequenceId, final List<String> data) {
+    public TextResultSetRowPacket(final int sequenceId, final List<String> data) {
         setSequenceId(sequenceId);
         this.data = data;
     }
