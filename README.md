@@ -12,5 +12,6 @@
 1. 由客户端连接sharding-jdbc-server, sharding-jdbc-server根据mysql protocol发送handshake packet至客户端. (sharding-jdbc-server负责生成handshake packet并发送至客户端)
 2. mysql客户端返回handshakeResponse41 packet, 由sharding-jdbc-server解析. (sharding-jdbc-server负责读取handshakeResponse41 packet)
 3. sharding-jdbc发送ok协议至mysql客户端 (sharding-jdbc-server生成ok packet,并发送至客户端)
+4. 实现了COM_QUERY命令,任何查询都会返回一个sharding jdbc的mock结果集
 
 PS: 希望社区的朋友踊跃参与, 提交记录最终会同步至sharding jdbc的官方github repo中. 感谢关注.
