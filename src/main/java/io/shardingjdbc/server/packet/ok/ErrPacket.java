@@ -6,7 +6,6 @@ import lombok.Getter;
 
 /**
  * ERR packet protocol.
- * 
  * @see <a href="https://dev.mysql.com/doc/internals/en/packet-ERR_Packet.html">ERR Packet</a>
  * 
  * @author zhangliang 
