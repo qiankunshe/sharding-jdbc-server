@@ -30,6 +30,12 @@ public final class ComQueryPacket extends CommandPacket {
     public List<MySQLSentPacket> execute() {
         List<MySQLSentPacket> result = new LinkedList<>();
         int currentSequenceId = getSequenceId();
+        if (sql.toLowerCase().startsWith("set")) {
+            result.add(new ComQueryResponsePacket(++currentSequenceId, 0));
+            result.add(new EofPacket(++currentSequenceId, 0, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue()));
+            result.add(new EofPacket(++currentSequenceId, 0, StatusFlag.SERVER_STATUS_AUTOCOMMIT.getValue()));
+            return result;
+        }
         result.add(new ComQueryResponsePacket(++currentSequenceId, 1));
         for (int i = 0; i < 1; i++) {
             result.add(new ColumnDefinition41Packet(++currentSequenceId, "schema", "table", "", "name", "", 65535, ColumnType.MYSQL_TYPE_STRING, 0));
