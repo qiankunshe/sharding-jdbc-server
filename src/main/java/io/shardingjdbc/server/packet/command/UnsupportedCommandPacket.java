@@ -5,6 +5,9 @@ import io.shardingjdbc.server.packet.MySQLSentPacket;
 import io.shardingjdbc.server.packet.ok.ErrPacket;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Unsupported command packet.
  *
@@ -29,7 +32,7 @@ public final class UnsupportedCommandPacket extends CommandPacket {
     }
     
     @Override
-    public MySQLSentPacket execute() {
-        return new ErrPacket(getSequenceId() + 1, ERROR_CODE ,SQL_STATE_MARKER, SQL_STATE, String.format(ERROR_MESSAGE, type));
+    public List<MySQLSentPacket> execute() {
+        return Collections.<MySQLSentPacket>singletonList(new ErrPacket(getSequenceId() + 1, ERROR_CODE ,SQL_STATE_MARKER, SQL_STATE, String.format(ERROR_MESSAGE, type)));
     }
 }

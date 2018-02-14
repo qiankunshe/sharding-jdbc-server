@@ -11,8 +11,15 @@ import io.shardingjdbc.server.packet.MySQLSentPacket;
  */
 public final class ComQueryResponsePacket extends MySQLSentPacket {
     
+    private final long columnCount;
+    
+    public ComQueryResponsePacket(final int sequenceId, final long columnCount) {
+        setSequenceId(sequenceId);
+        this.columnCount = columnCount;
+    }
+    
     @Override
     public void write(final MySQLPacketPayload mysqlPacketPayload) {
-        
+        mysqlPacketPayload.writeIntLenenc(columnCount);
     }
 }

@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.shardingjdbc.server.constant.StatusFlag;
 import io.shardingjdbc.server.packet.MySQLPacketPayload;
+import io.shardingjdbc.server.packet.MySQLSentPacket;
 import io.shardingjdbc.server.packet.command.CommandPacket;
 import io.shardingjdbc.server.packet.command.CommandPacketFactory;
 import io.shardingjdbc.server.packet.handshake.AuthPluginData;
@@ -52,6 +53,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         CommandPacket commandPacket = CommandPacketFactory.getCommandPacket(mysqlPacketPayload.readInt1());
         commandPacket.setSequenceId(sequenceId);
         commandPacket.read(mysqlPacketPayload);
-        context.writeAndFlush(commandPacket.execute());
+        for (MySQLSentPacket each : commandPacket.execute()) {
+            context.write(each);
+        }
+        context.flush();
     }
 }

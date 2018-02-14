@@ -3,6 +3,8 @@ package io.shardingjdbc.server.packet.command;
 import io.shardingjdbc.server.packet.MySQLReceivedPacket;
 import io.shardingjdbc.server.packet.MySQLSentPacket;
 
+import java.util.List;
+
 /**
  * Command packet.
  *
@@ -13,7 +15,7 @@ public abstract class CommandPacket extends MySQLReceivedPacket {
     /**
      * Execute command.
      * 
-     * @return result packet to be sent
+     * @return result packets to be sent
      */
-    public abstract MySQLSentPacket execute();
+    public abstract List<MySQLSentPacket> execute();
 }

@@ -43,21 +43,4 @@ public enum StatusFlag {
     SERVER_SESSION_STATE_CHANGED(0x4000);
     
     private final int value;
-    
-    /**
-     * Get handshake capability flags lower bit.
-     * 
-     * @return handshake capability flags lower bit
-     */
-    public static int calculateHandshakeStatusFlags() {
-        return calculateStatusFlags(SERVER_STATUS_AUTOCOMMIT);
-    }
-    
-    private static int calculateStatusFlags(final StatusFlag... capabilities) {
-        int result = 0;
-        for (StatusFlag each : capabilities) {
-            result |= each.value;
-        }
-        return result;
-    }
 }

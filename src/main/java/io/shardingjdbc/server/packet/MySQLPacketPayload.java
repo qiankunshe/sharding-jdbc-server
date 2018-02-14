@@ -1,5 +1,6 @@
 package io.shardingjdbc.server.packet;
 
+import com.google.common.base.Strings;
 import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -205,6 +206,10 @@ public final class MySQLPacketPayload {
      * @param value fixed length string
      */
     public void writeStringLenenc(final String value) {
+        if (Strings.isNullOrEmpty(value)) {
+            byteBuf.writeByte(0);
+            return;
+        }
         writeIntLenenc(value.length());
         byteBuf.writeBytes(value.getBytes());
     }
